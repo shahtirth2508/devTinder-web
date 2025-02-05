@@ -9,6 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       navigate("/");
     } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
       console.error(err);
     }
   };
@@ -38,6 +40,7 @@ const Login = () => {
             Hey, Sign in to your account
           </h2>
           <div>
+            <p className="text-red-500">{error}</p>
             <label className="input input-bordered flex items-center gap-2 my-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
