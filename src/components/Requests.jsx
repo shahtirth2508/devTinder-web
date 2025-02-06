@@ -73,7 +73,6 @@ const Requests = () => {
         </div>
       )}
 
-      {/* Main Content */}
       {requests.length === 0 ? (
         <div className="flex items-center justify-center min-h-[400px]">
           <h1 className="text-2xl font-semibold text-gray-600">
