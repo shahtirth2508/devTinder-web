@@ -7,8 +7,12 @@ import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    fetch("https://devtinder-igus.onrender.com").then((res) => res.json());
+  }, []);
   return (
     <>
       <Provider store={appStore}>
