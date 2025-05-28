@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
@@ -11,25 +11,34 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
+  const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
-    if (userData) return;
     try {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
       dispatch(addUser(res.data));
     } catch (err) {
-      if (err.status === 401) {
+      if (err?.response?.status === 401) {
         navigate("/login");
+      } else {
+        console.error(err);
       }
-      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (!userData) {
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, [userData]);
+
+  if (loading) return null;
 
   return (
     <>

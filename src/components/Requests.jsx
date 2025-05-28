@@ -60,7 +60,6 @@ const Requests = () => {
 
   return (
     <div className="relative">
-      {/* Toast Notification */}
       {toast.show && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
           <div
